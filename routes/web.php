@@ -34,6 +34,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/attendance/check-out', [AttendanceController::class, 'checkOut'])->name('attendance.check-out.store');
 
     Route::get('/reports/daily', [ReportController::class, 'daily'])->name('reports.daily');
+    Route::get('/reports/monthly', [ReportController::class, 'monthly'])->name('reports.monthly');
+    Route::get('/reports/employee', [ReportController::class, 'employee'])->name('reports.employee');
+
+    // Export routes
+    Route::get('/reports/daily/export', [ReportController::class, 'exportDaily'])->name('reports.daily.export');
+    Route::get('/reports/monthly/export', [ReportController::class, 'exportMonthly'])->name('reports.monthly.export');
+    Route::get('/reports/employee/export', [ReportController::class, 'exportEmployee'])->name('reports.employee.export');
 });
 
 require __DIR__ . '/auth.php';

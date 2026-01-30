@@ -39,11 +39,34 @@
 </a>
 
 <!-- Rapports -->
-<a href="{{ route('reports.daily') }}"
-    class="sidebar-item group flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all-200 {{ request()->routeIs('reports.*') ? 'sidebar-item-active' : 'text-slate-600' }}">
-    <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-    </svg>
-    Rapports
-</a>
+<div x-data="{ open: {{ request()->routeIs('reports.*') ? 'true' : 'false' }} }" class="space-y-1">
+    <button @click="open = !open"
+        class="w-full sidebar-item group flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all-200 {{ request()->routeIs('reports.*') ? 'sidebar-item-active' : 'text-slate-600' }}">
+        <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+        <span class="flex-1 text-left">Rapports</span>
+        <svg class="h-4 w-4 transform transition-transform duration-200" :class="open ? 'rotate-180' : ''" fill="none"
+            stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+    </button>
+
+    <div x-show="open" x-cloak x-transition:enter="transition ease-out duration-100"
+        x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"
+        class="pl-11 space-y-1 pb-2">
+        <a href="{{ route('reports.daily') }}"
+            class="block px-4 py-2 text-xs font-bold rounded-lg transition-colors {{ request()->routeIs('reports.daily') ? 'text-indigo-600 bg-indigo-50' : 'text-slate-500 hover:text-indigo-600 hover:bg-slate-50' }}">
+            Rapport Journalier
+        </a>
+        <a href="{{ route('reports.monthly') }}"
+            class="block px-4 py-2 text-xs font-bold rounded-lg transition-colors {{ request()->routeIs('reports.monthly') ? 'text-indigo-600 bg-indigo-50' : 'text-slate-500 hover:text-indigo-600 hover:bg-slate-50' }}">
+            Rapport Mensuel
+        </a>
+        <a href="{{ route('reports.employee') }}"
+            class="block px-4 py-2 text-xs font-bold rounded-lg transition-colors {{ request()->routeIs('reports.employee') ? 'text-indigo-600 bg-indigo-50' : 'text-slate-500 hover:text-indigo-600 hover:bg-slate-50' }}">
+            Rapport Employé
+        </a>
+    </div>
+</div>
