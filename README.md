@@ -21,12 +21,13 @@ Assurez-vous d'avoir installé :
 - **PHP** (>= 8.2)
 - **Composer**
 - **Node.js & NPM**
-- **SQLite** (par défaut) ou un autre système de base de données.
+- **MySQL** (ou MariaDB)
 
 ### 2. Clonage et Dépendances
 
 ```bash
-# Clonez le projet (si applicable) ou accédez au dossier
+# Clonez le projet
+git clone https://github.com/Abdoulali089/attendance-system.git
 cd attendance-system
 
 # Installez les dépendances PHP
@@ -36,7 +37,15 @@ composer install
 npm install
 ```
 
-### 3. Configuration de l'Environnement
+### 3. Configuration de la Base de Données (MySQL)
+
+1. Connectez-vous à votre serveur MySQL (via terminal ou un outil comme phpMyAdmin/HeidiSQL).
+2. Créez une nouvelle base de données :
+   ```sql
+   CREATE DATABASE attendance_db;
+   ```
+
+### 4. Configuration de l'Environnement
 
 ```bash
 # Créez le fichier .env
@@ -46,18 +55,26 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-> [!TIP]
-> Par défaut, le projet est configuré pour utiliser **SQLite**. Laravel créera automatiquement le fichier `database/database.sqlite` pour vous.
+Ouvrez le fichier `.env` et modifiez les lignes suivantes pour correspondre à votre configuration MySQL :
 
-### 4. Base de Données
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=attendance_db
+DB_USERNAME=votre_utilisateur
+DB_PASSWORD=votre_mot_de_passe
+```
 
-Exécutez les migrations pour créer les tables et ajoutez des données de test (optionnel) :
+### 5. Base de Données (Migrations & Seeders)
+
+Exécutez les migrations pour créer les tables et ajoutez les données initiales :
 
 ```bash
 php artisan migrate --seed
 ```
 
-### 5. Lancement de l'Application
+### 6. Lancement de l'Application
 
 Vous devez lancer deux terminaux :
 
@@ -66,7 +83,7 @@ Vous devez lancer deux terminaux :
 php artisan serve
 ```
 
-**Terminal 2 (Compilation Assets) :**
+**Terminal 2 (Vite / Compilation Assets) :**
 ```bash
 npm run dev
 ```
@@ -78,7 +95,7 @@ Accédez ensuite à l'adresse suivante dans votre navigateur : `http://localhost
 - **Backend** : Laravel 12
 - **Frontend** : Blade, Tailwind CSS, Alpine.js
 - **Build Tool** : Vite
-- **Base de données** : SQLite (ou MySQL/PostgreSQL)
+- **Base de données** : MySQL 8.0+
 
 ## 📱 Aperçu Mobile
 
